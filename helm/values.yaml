@@ -1,0 +1,18 @@
+image:
+  repository: laimison/percona-backup-notification
+  tag: 0.1
+
+email:
+  enabled: true
+  smtp:
+    host: smtp.gmail.com
+    port: 587
+    username: your-username-95712363910@gmail.com
+    password: your-password
+  from_address: your-email-from-95712363910@gmail.com
+  to_address: your-email-to-95712363910@gmail.com
+  subject_prefix: "[development]"
+
+percona_namespace: percona-l
+service_account: percona-backup-notification-sa
+secret_name: percona-backup-notification-secrets

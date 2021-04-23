@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: percona-backup-notification
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: percona-backup-notification
+  template:
+    metadata:
+      labels:
+        app: percona-backup-notification
+    spec:
+      serviceAccountName: {{ .Values.service_account | quote }}
+      containers:
+        - name: percona-backup-notification
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PERCONA_NAMESPACE
+              value: {{ .Values.percona_namespace | quote }}
+            - name: ENABLE_EMAIL_NOTIFICATIONS
+              value: {{ .Values.email.enabled | quote }}
+            - name: EMAIL_FROM_ADDRESS
+              value: {{ .Values.email.from_address | quote }}
+            - name: EMAIL_FROM_SENDER_NAME
+              value: {{ .Values.email.from_sender_name | quote }}
+            - name: EMAIL_TO_ADDRESS
+              value: {{ .Values.email.to_address | quote }}
+            - name: EMAIL_SUBJECT_PREFIX
+              value: {{ .Values.email.subject_prefix | quote }}
+            - name: EMAIL_SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: email_smtp_host
+                  name: {{ .Values.secret_name | quote }}
+            - name: EMAIL_SMTP_PORT
+              valueFrom:
+                secretKeyRef:
+                  key: email_smtp_port
+                  name: {{ .Values.secret_name | quote }}
+            - name: EMAIL_SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: email_smtp_username
+                  name: {{ .Values.secret_name | quote }}
+            - name: EMAIL_SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: email_smtp_password
+                  name: {{ .Values.secret_name | quote }}

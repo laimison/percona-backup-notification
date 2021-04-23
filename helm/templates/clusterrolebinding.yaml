@@ -1,0 +1,13 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: percona-backup-notification
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.service_account | quote }}
+    namespace: {{ .Values.percona_namespace | quote }}
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io

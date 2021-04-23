@@ -48,6 +48,19 @@ helm install ./helm \
 
 That's it
 
+## Uninstall
+
+Delete these resources
+
+```
+kubectl get deploy -n percona-l | grep percona-backup-notification
+kubectl get clusterrolebinding | grep percona-backup-notification
+kubectl get clusterrole | grep percona-backup-notification
+kubectl get sa -n percona-l | grep percona-backup-notification-sa
+kubectl get secret -n percona-l | grep percona-backup-notification
+
+```
+
 ## Development only
 
 Building Docker container

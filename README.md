@@ -1,6 +1,6 @@
 # percona-backup-notification
 
-This is a simple Kubernetes controller to monitor backup progress for [Percona XtraDB Kubernetes operator](https://github.com/percona/percona-xtradb-cluster-operator). This tool when backup is in one of the states by email:
+This is a simple Kubernetes controller to monitor backup progress for [Percona XtraDB Kubernetes operator](https://github.com/percona/percona-xtradb-cluster-operator). This tool notifies by email when backup is in state:
 
 * Created
 

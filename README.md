@@ -1,40 +1,22 @@
 # percona-backup-notification
 
-This is a simple Kubernetes controller to monitor backup progress for [Percona XtraDB Kubernetes operator](https://github.com/percona/percona-xtradb-cluster-operator). This tool notifies by email when backup is in state:
-
-* Created
-
-* Running
-
-* Failed
-
-* Succeeded
-
-The emails are classified by subject, e.g.:
-
-* [production] pxc-backup Created
-
-* [production] pxc-backup Running
-
-* [production] pxc-backup Failed
-
-* [production] pxc-backup Succeeded
+This is a simple Kubernetes controller to monitor backup progress for [Percona XtraDB Kubernetes operator](https://github.com/percona/percona-xtradb-cluster-operator). This tool notifies by email when there are changes in backup object called `pxc-backup`.
 
 In the email's body, you will see exact backup object name. So you know which backup is progressing well or failing.
 
-If your mail client classifies emails by subject in groups, you mailbox will not look bombed by emails:
+If your mail client classifies emails by subject in groups, you mailbox will not look bombed by emails (only counts are increasing):
 
 ![percona-backup-notification](percona-backup-notification.png)
 
-The pod (controller) is started in Percona DB namespace and monitors backups which are usually listed with command `kubectl get pxc-backup -n <namespace>`, but this tool does it at Kubernetes apiserver level by watching a backup object. So it's not calling apiserver every few seconds, it's watching for changes.
+The pod (controller) is started in Percona DB namespace and monitors backups which are usually listed with command `kubectl get pxc-backup -n <namespace>`, but this tool does it at Kubernetes apiserver level by watching a backup object. So it doesn't call apiserver every few seconds, it watches for changes.
 
 ## Installation
 
-Clone repo, make sure you have `helm` and `kubectl` installed and it points to your target cluster where Percona DB backups are scheduled
+Clone repo, make sure you have `helm` and `kubectl` installed and it points to your target cluster where Percona DB backups are scheduled:
 
 ```bash
 helm install ./helm \
-  --name percona-backup-notification \
+  --generate-name \
   --namespace percona-l \
   --set percona_namespace=percona-l \
   --set email.enabled=true \
@@ -87,4 +69,4 @@ curl -v --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -H "Author
 
 ## Thanks
 
-Special thanks to https://github.com/vitobotta for the base of the code, that is used in this controller
+Special thanks to https://github.com/vitobotta for the code, that was adapted by myself for Percona and used in this controller

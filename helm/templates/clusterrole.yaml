@@ -4,6 +4,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: percona-backup-notification
 rules:
-- apiGroups: [""]
-  resources: ["pxc-backup"]
+- apiGroups: ["pxc.percona.com"]
+  resources: ["perconaxtradbclusterbackups"]
   verbs: ["get", "list", "watch"]

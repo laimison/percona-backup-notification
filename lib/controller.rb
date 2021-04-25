@@ -42,11 +42,11 @@ class Controller
       if backup_hash.key?('status') && backup_hash['status'].key?('state')
         state = backup_hash['status']['state']
       else
-        state = "Running"
+        state = "Changed"
       end
 
       email_subject = "pxc-backup #{state}"
-      email_body = "Run kubectl describe pxc #{backup_hash['metadata']['name']} for more details"
+      email_body = "Run kubectl describe pxc-backup #{backup_hash['metadata']['name']} -A for more details"
     else
       email_subject = "pxc-backup resource is incomplete or doesn't exist"
       email_body = "please check kubectl get pxc-backup and kubectl get pods"

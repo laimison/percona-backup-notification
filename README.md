@@ -20,11 +20,13 @@ The emails are classified by subject, e.g.:
 
 * [production] pxc-backup Succeeded
 
-In the email's body, you will see which exact backup object is started, but not progressing or as desired succeeding.
+In the email's body, you will see exact backup object name. So you know which backup is progressing well or failing.
 
-If your mail client classifies emails by subject in groups, you will see only these items.
+If your mail client classifies emails by subject in groups, you mailbox will not look bombed by emails:
 
-The pod (controller) is started in Percona DB namespace and monitors backups which are usually listed with command `kubectl get pxc-backup -n <namespace>`, but it does it at Kubernetes apiserver level by watching a backup object.
+![percona-backup-notification](percona-backup-notification.png)
+
+The pod (controller) is started in Percona DB namespace and monitors backups which are usually listed with command `kubectl get pxc-backup -n <namespace>`, but this tool does it at Kubernetes apiserver level by watching a backup object. So it's not calling apiserver every few seconds, it's watching for changes.
 
 ## Installation
 

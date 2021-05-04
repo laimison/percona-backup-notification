@@ -19,6 +19,8 @@ helm install ./helm \
   --generate-name \
   --namespace percona-l \
   --set percona_namespace=percona-l \
+  --set service_account=percona-backup-notification-sa \
+  --set secret_name=percona-backup-notification-secrets \
   --set email.enabled=true \
   --set email.smtp.host=smtp.gmail.com \
   --set email.smtp.port=587 \

@@ -12,6 +12,7 @@ email:
   from_address: your-email-from-95712363910@gmail.com
   to_address: your-email-to-95712363910@gmail.com
   subject_prefix: "[development]"
+  from_sender_name: "Company X"
 
 percona_namespace: percona-l
 service_account: percona-backup-notification-sa
